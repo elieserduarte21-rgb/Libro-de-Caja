@@ -456,7 +456,7 @@
      ========================================================= */
   const projectData = {
     name: "Libro de Caja",
-    tagline: "Sistema de registro y control de las operaciones de caja: arqueos, gastos, movimientos entre dependencias, bajas de expt, combustible, útiles y firmas digitales.",
+    tagline: "Sistema de registro y control de las operaciones de caja: arqueos, gastos, movimientos entre dependencias, bajas de expt, combustible, útiles y creación de firmas digitales.",
     sections: [
       {
         icon: "🧾",
@@ -477,15 +477,15 @@
       {
         icon: "📉",
         title: "Gastos Diferidos",
-        subtitle: "Control y amortización de gastos pagados por anticipado",
+        subtitle: "Control y amortización de gastos diferidos de la empresa",
         url: "paginas/gastos-diferidos.html",
         content: "Aquí se registran los gastos pagados por anticipado que deben reconocerse como gasto en períodos futuros (seguros, alquileres, suscripciones, etc.). Incluye el registro del pago, su clasificación como diferido y el cálculo de la amortización mensual según el período de vigencia.",
         steps: [
-          "Registra el pago del gasto diferido indicando factura, fecha y proveedor.",
+          "Registra el pago del gasto diferido indicando, fecha y proveedor.",
           "Clasifica el tipo de gasto y define el período de amortización.",
           "Calcula la cuota mensual a reconocer como gasto (importe total ÷ meses).",
           "Actualiza la tabla de amortización al cierre de cada mes.",
-          "Adjunta la documentación de respaldo (factura, contrato o póliza)."
+          "Adjunta la documentación de respaldo (contrato o póliza)."
         ]
       },
       {
@@ -505,15 +505,16 @@
       {
         icon: "📁",
         title: "Expt de Baja",
-        subtitle: "Expedientes de baja de bienes y activos",
+        subtitle: "Expedientes de baja de útiles, bienes y activos",
         url: "paginas/expt-baja.html",
-        content: "Expediente documental para dar de baja bienes, activos o documentos por deterioro, obsolescencia, pérdida o fin de vida útil. Cada expediente incluye el inventario del bien, el dictamen técnico, la autorización del jefe de la dependencia y la resolución final que aprueba la baja.",
+        content: "Expediente documental para dar de baja de útiles, bienes, activos o documentos por deterioro, obsolescencia, pérdida o fin de vida útil. Cada expediente incluye el inventario del bien, el dictamen técnico, la autorización del jefe de la dependencia y la resolución final que aprueba la baja.",
         steps: [
           "Identifica el bien o activo a dar de baja (número de inventario y descripción).",
           "Redacta el motivo de la baja (deterioro, pérdida, obsolescencia, etc.).",
           "Adjunta el dictamen técnico o evidencia fotográfica del estado.",
           "Solicita la autorización del jefe de la dependencia correspondiente.",
           "Archiva la resolución final y actualiza el inventario."
+          "Dentro de esta web solo se mantiene informacion de los expt no el expt como tal."
         ]
       },
       {
@@ -524,16 +525,16 @@
         content: "Registro y control del combustible asignado a vehículos y equipos: vales emitidos, consumo por unidad, kilometraje o horas de uso, y conciliación entre el combustible entregado y el consumo real. Permite detectar desviaciones y optimizar el gasto de combustible.",
         steps: [
           "Registra el vale de combustible indicando fecha, unidad y litros entregados.",
-          "Anota el kilometraje u horas de uso al momento de la carga.",
+          "Permite el conocimiento de que vehículo opera cada tarjeta de combustible y su gasto real.",
           "Calcula el rendimiento (km recorridos ÷ litros consumidos).",
           "Compara el consumo real con el estándar permitido por vehículo.",
-          "Justifica cualquier desviación significativa en el informe mensual."
+          "Permite el análisis estadístico del combustible de la empresa y su gasto en ambas monedas."
         ]
       },
       {
         icon: "🧰",
         title: "Útiles en Uso",
-        subtitle: "Control de herramientas y materiales en uso",
+        subtitle: "Control de herramientas y Útiles en uso",
         url: "Utiles/index.html",
         content: "Control de los útiles, herramientas y materiales entregados a los trabajadores para el desempeño de sus funciones. Se registra a quién se le entrega cada bien, el estado en que se encuentra, la fecha de entrega y la fecha de devolución o reemplazo.",
         steps: [
@@ -542,20 +543,20 @@
           "Obtén la firma del trabajador como responsable del cuidado del útil.",
           "Actualiza el estado del útil al momento de la devolución o reemplazo.",
           "Reporta pérdidas o deterioros para su análisis y posible reposición."
+          "Permite la creación y llenado por completo del expediente de baja del útil."
         ]
       },
       {
         icon: "✍️",
         title: "Firmas",
-        subtitle: "Registro y control de firmas responsables",
+        subtitle: "Aplicación para la creación de Firmas digitales",
         url: "paginas/firmas.html",
-        content: "Sección destinada al control de las firmas de las personas autorizadas para aprobar operaciones del libro de caja: jefes, custodios, contadores y demás responsables. Incluye el registro de firmas autorizadas, la vigencia del cargo y las sustituciones temporales.",
+        content: "Sección destinada a la creación de las firmas digitales de las personas autorizadas para aprobar operaciones del libro de caja: jefes, custodios, contadores y demás responsables.",
         steps: [
-          "Registra los datos del firmante: nombre, cargo y dependencia.",
-          "Captura la firma (manuscrita escaneada o digital según corresponda).",
-          "Adjunta el documento que respalda la autorización del cargo.",
-          "Marca la vigencia de la firma y su fecha de vencimiento si aplica.",
-          "Actualiza el registro cuando haya cambio de titular o sustitución temporal."
+          "Registra la firma ya sea desde una foto o documento.",
+          "Permite la edición automática.",
+          "Permite la edición manual para dar rasgos especificos.",
+        
         ]
       }
     ]
