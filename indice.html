@@ -38,7 +38,6 @@
     position: relative;
   }
 
-  /* ===== Fondo animado con orbes ===== */
   .bg-orb {
     position: fixed;
     border-radius: 50%;
@@ -58,7 +57,6 @@
     66%      { transform: translate(-30px, 30px) scale(0.95); }
   }
 
-  /* ===== Layout principal ===== */
   .page {
     position: relative;
     z-index: 1;
@@ -67,7 +65,6 @@
     padding: 64px 24px 96px;
   }
 
-  /* ===== Hero ===== */
   .hero {
     text-align: center;
     margin-bottom: 64px;
@@ -109,7 +106,6 @@
     line-height: 1.6;
   }
 
-  /* ===== Grid de pestañas ===== */
   .tabs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -239,7 +235,6 @@
     gap: 4px;
   }
 
-  /* Botón deshabilitado (páginas que aún no existen) */
   .btn-disabled {
     opacity: 0.45;
     cursor: not-allowed;
@@ -257,7 +252,6 @@
 
   .btn-block { width: 100%; }
 
-  /* ===== Modal ===== */
   .modal-overlay {
     position: fixed;
     inset: 0;
@@ -401,7 +395,6 @@
   }
   .modal-footer .btn { flex: 1; min-width: 160px; padding: 12px 18px; }
 
-  /* ===== Animaciones ===== */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(28px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -513,7 +506,7 @@
           "Redacta el motivo de la baja (deterioro, pérdida, obsolescencia, etc.).",
           "Adjunta el dictamen técnico o evidencia fotográfica del estado.",
           "Solicita la autorización del jefe de la dependencia correspondiente.",
-          "Archiva la resolución final y actualiza el inventario."
+          "Archiva la resolución final y actualiza el inventario.",
           "Dentro de esta web solo se mantiene informacion de los expt no el expt como tal."
         ]
       },
@@ -542,7 +535,7 @@
           "Describe el bien, cantidad y estado en el momento de la entrega.",
           "Obtén la firma del trabajador como responsable del cuidado del útil.",
           "Actualiza el estado del útil al momento de la devolución o reemplazo.",
-          "Reporta pérdidas o deterioros para su análisis y posible reposición."
+          "Reporta pérdidas o deterioros para su análisis y posible reposición.",
           "Permite la creación y llenado por completo del expediente de baja del útil."
         ]
       },
@@ -555,8 +548,7 @@
         steps: [
           "Registra la firma ya sea desde una foto o documento.",
           "Permite la edición automática.",
-          "Permite la edición manual para dar rasgos especificos.",
-        
+          "Permite la edición manual para dar rasgos especificos."
         ]
       }
     ]
@@ -568,6 +560,11 @@
   document.getElementById('projectName').textContent = projectData.name;
   document.getElementById('projectTagline').textContent = projectData.tagline;
   document.title = projectData.name + ' | Índice';
+
+  // Detecta si una URL es externa (empieza por http:// o https://)
+  function esURlExterna(url) {
+    return /^https?:\/\//i.test(url || '');
+  }
 
   const grid = document.getElementById('tabsGrid');
   projectData.sections.forEach((section, index) => {
@@ -584,11 +581,12 @@
       ? 'Esta sección aún no está disponible'
       : 'Abrir ' + section.title;
     const abrirBtnTexto = pendiente ? 'Próximamente' : 'Abrir ↗';
+    const abrirBtnTarget = (!pendiente && esURlExterna(section.url)) ? ' target="_blank" rel="noopener noreferrer"' : '';
 
     card.innerHTML = `
       <div class="tab-header">
         <div class="tab-icon">${section.icon}</div>
-        <a class="${abrirBtnClass}" href="${abrirBtnHref}" title="${abrirBtnTitle}">${abrirBtnTexto}</a>
+        <a class="${abrirBtnClass}" href="${abrirBtnHref}" title="${abrirBtnTitle}"${abrirBtnTarget}>${abrirBtnTexto}</a>
       </div>
       <h2 class="tab-title">${section.title}</h2>
       <p class="tab-subtitle">${section.subtitle}</p>
@@ -642,10 +640,18 @@
       openPageBtn.href = '#';
       openPageBtn.textContent = 'Próximamente';
       openPageBtn.classList.add('btn-disabled');
+      openPageBtn.removeAttribute('target');
     } else {
       openPageBtn.href = section.url;
       openPageBtn.textContent = 'Abrir ↗';
       openPageBtn.classList.remove('btn-disabled');
+      if (esURlExterna(section.url)) {
+        openPageBtn.setAttribute('target', '_blank');
+        openPageBtn.setAttribute('rel', 'noopener noreferrer');
+      } else {
+        openPageBtn.removeAttribute('target');
+        openPageBtn.removeAttribute('rel');
+      }
     }
 
     overlay.classList.add('active');
