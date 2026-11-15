@@ -1,0 +1,224 @@
+/* expediente de baja: tabs and printable forms */
+.baja-heading-actions{display:flex;align-items:center;gap:9px}
+.expt-baja-panel{padding-bottom:14px}
+.baja-document-tabs{display:flex;gap:6px;padding:4px 28px 0;border-bottom:1px solid var(--line);overflow-x:scroll;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:var(--line) var(--soft)}.baja-document-tabs::-webkit-scrollbar{height:8px}.baja-document-tabs::-webkit-scrollbar-track{background:var(--soft)}.baja-document-tabs::-webkit-scrollbar-thumb{border:2px solid var(--soft);border-radius:8px;background:var(--line)}
+.baja-document-tab{position:relative;flex:0 0 auto;white-space:nowrap;padding:12px 15px;border:0;border-radius:9px 9px 0 0;background:transparent;color:var(--muted);font-weight:600;font-size:12px}
+.baja-document-tab:hover{background:var(--soft);color:var(--ink)}
+.baja-document-tab.active{background:var(--blue-soft);color:var(--blue)}
+.baja-document-tab.active:after{position:absolute;right:12px;bottom:-1px;left:12px;height:2px;background:var(--blue);content:""}
+.baja-index-print{max-width:780px;margin:0 auto;padding:42px 48px 48px;background:var(--surface);color:var(--ink)}
+.baja-index-kicker{margin-bottom:10px;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.14em}
+.baja-index-print h2{margin:0;text-align:center;font-family:Georgia,"Times New Roman",serif;font-size:25px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.baja-index-subtitle{margin:8px 0 26px;text-align:center;color:var(--muted);font-size:12px}
+.baja-index-table{width:100%;border-collapse:collapse;background:transparent}
+.baja-index-table th,.baja-index-table td{padding:12px 14px;border:1px solid var(--line);text-align:left}
+.baja-index-table th{background:var(--soft);font-size:11px;letter-spacing:.05em}
+.baja-index-table th:last-child,.baja-index-table td:last-child{width:105px;text-align:center}
+.baja-index-table td{font-family:Arial,Helvetica,sans-serif;font-size:13px}
+.baja-index-table input{width:64px;height:30px;border:1px solid var(--line);border-radius:5px;background:var(--surface);color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+.baja-index-table input:focus{outline:2px solid var(--blue);outline-offset:1px}
+.baja-index-status{margin:22px 0 0;color:var(--muted);font-size:11px;text-align:right}
+.annex1-document{max-width:900px;margin:0 auto;padding:28px 40px 36px;background:var(--surface);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+.annex1-header{border-bottom:2px solid var(--ink);padding-bottom:10px}
+.annex1-kicker{display:block;margin-bottom:5px;color:var(--muted);font-size:9px;font-weight:700;letter-spacing:.13em}
+.annex1-header h2{margin:0 0 8px;text-align:center;font-family:Georgia,"Times New Roman",serif;font-size:20px;letter-spacing:.04em}.annex1-exp-number{margin:0;text-align:right;font-size:10px}.annex1-exp-number strong{font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.annex1-header-line{display:grid;grid-template-columns:1fr 1fr 1.3fr;align-items:center;gap:8px;font-size:11px}
+.annex1-header-line>strong{text-transform:uppercase}
+.annex1-header-line>span{text-align:center}
+.annex1-header-line>label{text-align:right}
+.annex1-entity-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;padding:14px 0}
+.annex1-entity-grid label,.annex1-signatures label{display:flex;align-items:flex-end;gap:6px;min-width:0;font-size:10px;font-weight:600}
+.annex1-entity-grid input,.annex1-signatures input{min-width:0;flex:1;height:23px;padding:2px 4px;border:0;border-bottom:1px solid #737373;border-radius:0;background:transparent;color:var(--ink);font-size:11px}
+.annex1-entity-grid input:focus,.annex1-signatures input:focus,.annex1-amount input:focus{outline:1px solid var(--blue);outline-offset:1px}
+.annex1-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.annex1-table th,.annex1-table td{padding:6px 9px;border:1px solid var(--line);font-size:10px;line-height:1.3}
+.annex1-table th:first-child{background:var(--soft);text-align:left;font-size:10px}
+.annex1-table th:last-child,.annex1-table td:last-child{width:64px;text-align:center}
+.annex1-table input[type=checkbox],.annex1-proposal input[type=checkbox]{width:15px;height:15px;margin:0;accent-color:var(--blue);vertical-align:middle;cursor:pointer}
+.annex1-proposal{margin-top:12px;border:1px solid var(--line)}
+.annex1-proposal>strong{display:block;padding:7px 9px;background:var(--soft);font-size:10px}
+.annex1-proposal label{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 10px;border-top:1px solid var(--line);font-size:10px}
+.annex1-amount{display:flex;align-items:center;gap:16px;margin-top:12px;padding:10px;border:1px solid var(--line);font-size:10px}
+.annex1-amount>strong{margin-right:auto}
+.annex1-amount label{display:flex;align-items:center;gap:6px;font-weight:700}
+.annex1-amount input{width:90px;height:24px;padding:2px 4px;border:0;border-bottom:1px solid #737373;border-radius:0;background:transparent;color:var(--ink);font-size:11px}
+.annex1-signatures{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:25px;padding:0 15px}.physical-inventory-doc{max-width:980px;margin:0 auto;padding:28px 36px 38px;background:var(--surface);color:var(--ink)}.physical-inventory-heading>span{display:block;color:var(--muted);font-size:9px;font-weight:700;letter-spacing:.13em}.physical-inventory-heading h2{margin:6px 0 9px;text-align:center;font-family:Georgia,"Times New Roman",serif;font-size:21px}.physical-inventory-heading p{max-width:760px;margin:0 auto 18px;font-size:11px;line-height:1.6}.baja-candidate-details{margin:0 0 18px;border:1px solid var(--line);border-radius:9px;background:var(--soft)}.baja-candidate-details summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 15px;color:var(--ink);font-size:12px;font-weight:700;cursor:pointer;list-style:none}.baja-candidate-details summary::-webkit-details-marker{display:none}.baja-candidate-details summary:after{content:"⌄";color:var(--blue);font-size:17px}.baja-candidate-details[open] summary:after{content:"⌃"}.baja-candidate-details summary span{margin-left:auto;color:var(--muted);font-weight:500}.baja-candidate-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;padding:1px;background:var(--line);border-top:1px solid var(--line)}.baja-candidate-option{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface);cursor:pointer}.baja-candidate-option>input{width:16px;height:16px;accent-color:var(--blue)}.baja-candidate-option>span{display:flex;flex-direction:column;gap:3px;font-size:11px;font-weight:600}.baja-candidate-option small{color:var(--muted);font-size:10px;font-weight:400}.baja-candidate-empty{grid-column:1/-1;margin:0;padding:15px;color:var(--muted);font-size:11px}.physical-inventory-meta{margin:0 0 8px;text-align:right;font-size:10px}.physical-inventory-table{width:100%;min-width:720px;border-collapse:collapse}.physical-inventory-table th,.physical-inventory-table td{padding:8px 9px;border:1px solid var(--line);font-size:10px;line-height:1.35;text-align:left}.physical-inventory-table th{background:var(--soft);font-size:9px;text-transform:uppercase;letter-spacing:.04em}.physical-inventory-table th:nth-child(5),.physical-inventory-table th:nth-child(6),.physical-inventory-table td:nth-child(5),.physical-inventory-table td:nth-child(6){text-align:right}.physical-inventory-table tfoot td{font-weight:700;background:var(--soft)}.physical-inventory-empty{padding:18px;color:var(--muted);font-size:11px;text-align:center}.physical-inventory-empty[hidden]{display:none}.physical-inventory-total{display:flex;justify-content:flex-end;gap:15px;padding:12px 5px;font-size:11px}.physical-inventory-total strong{min-width:85px;text-align:right;font-size:13px;font-variant-numeric:tabular-nums}.physical-inventory-note{margin:22px 0;font-size:10px}.physical-inventory-signatures{display:grid;gap:13px;margin-top:27px;font-size:10px}
+.annex2-document{max-width:900px;margin:0 auto;padding:34px 44px 42px;background:var(--surface);color:var(--ink);font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.55}.annex2-heading{text-align:center;border-bottom:2px solid var(--ink);padding-bottom:14px}.annex2-heading>span{display:block;text-align:left;color:var(--muted);font-size:9px;font-weight:700;letter-spacing:.12em}.annex2-heading h2{margin:16px 0 4px;font-family:Georgia,"Times New Roman",serif;font-size:22px;letter-spacing:.08em}.annex2-heading strong{font-size:12px}.annex2-intro,.annex2-decision{margin:22px 0 14px;line-height:1.8}.annex2-document input{display:inline-block;max-width:100%;padding:2px 4px;border:0;border-bottom:1px solid #666;border-radius:0;background:transparent;color:var(--ink);font:inherit;text-align:center}.annex2-intro input[data-annex2-field=dia]{width:42px}.annex2-intro input[data-annex2-field=mes]{width:120px}.annex2-intro input[data-annex2-field=ano]{width:34px}.annex2-intro input[data-annex2-field=acta],.annex2-decision input{width:100px}.annex2-exp-number{margin:0 0 8px;text-align:right;font-size:10px}.annex2-table{width:100%;border-collapse:collapse}.annex2-table th,.annex2-table td{padding:7px 6px;border:1px solid var(--line);font-size:9px;line-height:1.35;text-align:left}.annex2-table th{background:var(--soft);font-size:8px;letter-spacing:.03em}.annex2-table td:nth-child(n+4),.annex2-table tfoot td:nth-child(n+4){text-align:right}.annex2-table tfoot td{font-weight:700;background:var(--soft)}.annex2-empty{padding:14px;color:var(--muted);font-size:10px;text-align:center}.annex2-empty[hidden]{display:none}.annex2-resolutions{padding-left:24px;line-height:1.7}.annex2-resolutions li{padding:2px 0 5px}.annex2-sign-intro{margin:26px 0 18px}.annex2-signatures{display:grid;grid-template-columns:1fr 1fr;gap:30px 42px;padding:0 12px;text-align:center}.annex2-signatures>div{display:flex;min-height:74px;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px}.annex2-signatures strong{font-size:10px}.annex2-signatures span{font-size:10px}.annex2-signatures i{width:80%;height:22px;border-top:1px solid #666}.annex2-signatures .annex2-signature-center{grid-column:1/-1;width:50%;justify-self:center}
+@media(max-width:650px){.baja-document-tabs{padding-right:14px;padding-left:14px}.annex1-document{padding:20px 14px}.annex2-document{padding:20px 14px;font-size:11px}.annex2-table th,.annex2-table td{padding:5px 3px;font-size:8px}.annex2-signatures{gap:20px 12px;padding:0}.annex1-header-line{grid-template-columns:1fr 1fr}.annex1-header-line>label{grid-column:1/-1;text-align:left}.annex1-entity-grid{gap:6px 12px}.annex1-table th,.annex1-table td{padding:5px 6px;font-size:9px}.annex1-table th:last-child,.annex1-table td:last-child{width:44px}.annex1-amount{flex-wrap:wrap;gap:10px}.annex1-amount>strong{width:100%}.annex1-amount input{width:70px}.annex1-signatures{gap:12px;padding:0}.baja-candidate-list{grid-template-columns:1fr}.physical-inventory-doc{padding:18px 12px}}
+@media print{
+ @page{size:letter portrait;margin:7mm}
+ body.printing-baja-model{background:#fff!important;color:#111!important;min-width:0}
+ .printing-baja-model .app-shell{max-width:none;padding:0!important}
+ .printing-baja-model .app-shell>header,.printing-baja-model .app-shell>nav,.printing-baja-model .app-shell>.entity-strip,.printing-baja-model .app-shell>main:not(#exptBajaView),.printing-baja-model .app-shell>footer{display:none!important}
+ .printing-baja-model #exptBajaView{display:block!important}
+ .printing-baja-model #exptBajaView>*:not(.expt-baja-panel){display:none!important}
+ .printing-baja-model .expt-baja-panel{display:block!important;margin:0;border:0;border-radius:0;background:#fff;box-shadow:none;padding:0}
+ .printing-baja-model .expt-baja-panel>.inventory-toolbar,.printing-baja-model .baja-document-tabs,.printing-baja-model #bajaCandidateDetails{display:none!important}
+ .printing-baja-model .baja-model-panel:not([hidden]){display:block!important}
+ .printing-baja-model .baja-index-print,.printing-baja-model .annex1-document,.printing-baja-model .annex2-document{display:block!important;max-width:none;margin:0;padding:5mm 3mm;background:#fff;color:#111}
+ .printing-baja-model .baja-index-kicker,.printing-baja-model .baja-index-subtitle,.printing-baja-model .baja-index-status,.printing-baja-model .annex1-kicker,.printing-baja-model .annex2-heading>span{color:#333}
+ .printing-baja-model .baja-index-print h2{font-size:22pt}
+ .printing-baja-model .baja-index-table th,.printing-baja-model .baja-index-table td,.printing-baja-model .annex1-table th,.printing-baja-model .annex1-table td,.printing-baja-model .annex2-table th,.printing-baja-model .annex2-table td{border:1px solid #333;color:#111}
+ .printing-baja-model .baja-index-table th,.printing-baja-model .annex1-table th:first-child{background:#f1f1f1!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .printing-baja-model .baja-index-table input{height:auto;border:0;border-radius:0;background:transparent;color:#111;font-size:11pt;appearance:none;-webkit-appearance:none}
+ .printing-baja-model .annex1-document{font-size:10pt}.printing-baja-model .physical-inventory-doc{max-width:none;padding:5mm 3mm}.printing-baja-model .physical-inventory-table{min-width:0}.printing-baja-model .physical-inventory-table th,.printing-baja-model .physical-inventory-table td{padding:5px 4px;font-size:7.5pt}.printing-baja-model .physical-inventory-heading>span{color:#333}.printing-baja-model .physical-inventory-empty,.printing-baja-model .annex2-empty{display:none!important}
+ .printing-baja-model .annex1-table th,.printing-baja-model .annex1-table td{padding:5px 7px;font-size:8.5pt;line-height:1.2}
+ .printing-baja-model .annex1-entity-grid input,.printing-baja-model .annex1-signatures input,.printing-baja-model .annex1-amount input,.printing-baja-model .annex2-document input{background:transparent;color:#111}
+ .printing-baja-model input[type=checkbox]{appearance:none;-webkit-appearance:none;width:13px;height:13px;border:1px solid #111!important;border-radius:0;background:#fff!important;print-color-adjust:exact}
+ .printing-baja-model input[type=checkbox]:checked{background:linear-gradient(135deg,transparent 44%,#111 45%,#111 55%,transparent 56%),linear-gradient(45deg,transparent 42%,#111 43%,#111 53%,transparent 54%)!important}
+}
+/* Comprobante de operaciones contables basado en el modelo recibido */
+.compt-document{max-width:1040px;margin:0 auto;padding:34px 38px 40px;background:var(--surface);color:var(--ink);font-family:Arial,Helvetica,sans-serif;font-size:12px}
+.compt-header{position:relative;min-height:118px;padding-right:180px;border-bottom:1px solid var(--ink)}
+.compt-entity{display:flex;align-items:baseline;gap:5px;max-width:460px;font-weight:700;font-size:11px;line-height:1.55}.compt-entity input{width:100%;font-weight:700;text-align:left!important}
+.compt-header h2{margin:13px 0 0;text-align:center;font-family:Georgia,"Times New Roman",serif;font-size:18px;letter-spacing:.07em}
+.compt-title{position:absolute;right:0;top:48px;width:175px;text-align:center;font-weight:700;font-size:12px;line-height:1.4}
+.compt-code{position:absolute;left:0;bottom:8px;display:flex;align-items:center;gap:16px;font-size:10px;font-weight:700;letter-spacing:.08em}.compt-code input{width:95px}
+.compt-table-wrap{overflow-x:auto;margin-top:12px}.compt-table{width:100%;min-width:680px;table-layout:fixed;border-collapse:collapse}.compt-col-cta{width:10%}.compt-col-sub{width:10%}.compt-col-cc{width:10%}.compt-col-concept{width:34%}.compt-col-part{width:13%}.compt-col-debit,.compt-col-credit{width:11.5%}
+.compt-table th,.compt-table td{height:34px;padding:4px 5px;border:1px solid #8e8e8e;font-size:10px;line-height:1.3;text-align:center;vertical-align:middle}.compt-table thead th{background:#f1f1f1;color:#222;font-weight:700;letter-spacing:.025em}.compt-table thead tr+tr th{height:26px}.compt-table .compt-account td{height:40px}.compt-table td:nth-child(4){text-align:left}.compt-table input,.compt-explanation input,.compt-explanation textarea,.compt-signatures input{width:100%;min-width:0;height:25px;padding:2px 3px;border:0;border-bottom:1px solid #aaa;border-radius:0;background:transparent;color:var(--ink);font:inherit;text-align:center}.compt-table td:nth-child(4) input{text-align:left}.compt-table input::placeholder{color:#888}.compt-table .compt-money{white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}.compt-money span{float:left}.compt-money strong{font-weight:600}.compt-total-label{font-weight:700;text-align:right!important}.compt-explanation{display:grid;grid-template-columns:110px 1fr;gap:10px 12px;margin-top:19px;align-items:start;font-size:10px}.compt-explanation>strong{padding-top:7px}.compt-explanation textarea{height:42px;resize:vertical;text-align:left}.compt-date{grid-column:2;max-width:260px}.compt-date input{text-align:left}.compt-signatures{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:16px;margin-top:36px;text-align:center}.compt-signatures>div{display:flex;min-height:42px;flex-direction:column;justify-content:flex-end;gap:5px}.compt-signatures strong{font-size:9px;letter-spacing:.04em}.compt-signatures input{height:28px;border-top:1px solid #777;border-bottom:0;font-size:10px}.compt-signatures .compt-register{grid-column:1/-1;min-height:28px;width:44%;justify-self:end}.compt-signatures .compt-register input{border:0;text-align:right}
+@media(max-width:650px){.compt-document{padding:22px 13px}.compt-header{padding-right:0;padding-bottom:34px}.compt-header h2{font-size:14px;margin-top:9px}.compt-title{top:auto;right:0;bottom:5px;width:auto;font-size:10px}.compt-code{bottom:5px}.compt-signatures{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 8px}.compt-signatures .compt-register{grid-column:1/-1;width:100%}}
+@media print{.compt-document{display:block!important;max-width:none;margin:0;padding:5mm 3mm;background:#fff;color:#111;font-size:9pt}.compt-header{min-height:31mm}.compt-header h2{font-size:15pt}.compt-title{font-size:9pt}.compt-table{min-width:0}.compt-table th,.compt-table td{height:8mm;padding:3px 4px;border:1px solid #222;color:#111;font-size:8pt}.compt-table thead th{background:#eee!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}.compt-table .compt-account td{height:9mm}.compt-table input,.compt-explanation input,.compt-explanation textarea,.compt-signatures input{color:#111;font-size:8pt}.compt-signatures{gap:12px;margin-top:22px}.compt-signatures strong{font-size:7pt}.compt-table-wrap{overflow:visible}}
+
+/* Copia del formato original Anexo 3 · Acta de Destino Final */
+.annex3-document{max-width:850px;min-height:900px;margin:0 auto;padding:40px 54px 58px;background:var(--surface);color:var(--ink);font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.35}
+.annex3-title{margin:0 0 34px;text-align:center;font-size:14px;font-weight:700;font-style:italic}
+.annex3-document h2{margin:0;text-align:center;font-size:14px;line-height:1.3;font-weight:700}
+.annex3-intro{margin-top:58px;font-size:14px;line-height:1.25}
+.annex3-intro p{margin:0;white-space:nowrap}
+.annex3-write-lines{margin-top:25px;font-size:14px;line-height:1.72;white-space:nowrap;overflow:hidden}
+.annex3-write-lines p{margin:0}
+.annex3-closing{margin:126px 0 0;font-size:14px;line-height:1.3;white-space:nowrap}
+.annex3-period{margin:0;line-height:1}
+.annex3-signatures{display:grid;grid-template-columns:1fr 1fr;gap:28px 20px;margin-top:38px;text-align:center}
+.annex3-signatures>div{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:13px;line-height:1.25}
+.annex3-signatures strong{font-weight:400}
+.annex3-signature-center{grid-column:1/-1;margin-top:18px}
+@media(max-width:650px){.annex3-document{min-height:0;padding:28px 18px}.annex3-intro,.annex3-write-lines,.annex3-closing{font-size:11px}.annex3-intro p,.annex3-closing{white-space:normal}.annex3-write-lines{white-space:normal;overflow:hidden;font-size:10px}}
+@media print{
+ @page anexo3{size:letter portrait;margin:.5in .95in .98in}
+ .printing-baja-model #bajaModelAnexo3{page:anexo3}
+ .printing-baja-model .annex3-document{display:block!important;max-width:none;min-height:0;margin:0;padding:0;background:#fff;color:#111;font-size:11pt;line-height:1.35;page:anexo3}
+ .printing-baja-model .annex3-title{margin-bottom:34px;font-size:14pt}
+ .printing-baja-model .annex3-document h2{font-size:11pt}
+ .printing-baja-model .annex3-intro{margin-top:58px;font-size:11pt;line-height:1.25}
+ .printing-baja-model .annex3-write-lines{margin-top:25px;font-size:11pt;line-height:1.72}
+ .printing-baja-model .annex3-closing{margin-top:126px;font-size:11pt}
+ .printing-baja-model .annex3-signatures{margin-top:38px}
+ .printing-baja-model .annex3-signatures>div{font-size:10pt}
+ .printing-baja-model .annex3-signature-center{margin-top:18px}
+}
+
+
+/* Impresión optimizada del expediente de baja: papel carta y espacios compactos */
+@media print{
+ @page{size:letter portrait;margin:7mm}
+ @page anexo3{size:letter portrait;margin:7mm}
+ .printing-baja-model,.printing-baja-model body{background:#fff!important;color:#111!important;min-width:0!important}
+ .printing-baja-model .app-shell{width:100%;max-width:none;margin:0;padding:0!important}
+ .printing-baja-model #exptBajaView{width:100%;margin:0;padding:0}
+ .printing-baja-model .expt-baja-panel{width:100%;min-height:0;margin:0;padding:0!important;border:0;border-radius:0;background:#fff;box-shadow:none}
+ .printing-baja-model .baja-model-panel:not([hidden]){display:block!important;width:100%;margin:0;padding:0;break-before:avoid;page-break-before:avoid}
+ .printing-baja-model .baja-index-print,
+ .printing-baja-model .annex1-document,
+ .printing-baja-model .physical-inventory-doc,
+ .printing-baja-model .annex2-document,
+ .printing-baja-model .compt-document,
+ .printing-baja-model .annex3-document{width:100%;max-width:none;min-height:0;margin:0;padding:0;background:#fff;color:#111;box-shadow:none}
+ .printing-baja-model .table-wrap{overflow:visible!important}
+ .printing-baja-model table{width:100%;min-width:0!important;table-layout:auto;border-collapse:collapse;break-inside:auto}
+ .printing-baja-model thead{display:table-header-group}
+ .printing-baja-model tr{break-inside:avoid;page-break-inside:avoid}
+ .printing-baja-model th,.printing-baja-model td{padding:2px 4px!important;font-size:8pt!important;line-height:1.15!important;color:#111!important}
+ .printing-baja-model .baja-index-kicker{margin:0 0 2mm;font-size:7pt}
+ .printing-baja-model .baja-index-print h2{margin:0;font-size:15pt;line-height:1.1}
+ .printing-baja-model .baja-index-subtitle{margin:2mm 0 4mm;font-size:8pt}
+ .printing-baja-model .baja-index-table th,.printing-baja-model .baja-index-table td{padding:2mm 3mm!important}
+ .printing-baja-model .baja-index-table th:last-child,.printing-baja-model .baja-index-table td:last-child{width:24mm}
+ .printing-baja-model .baja-index-table input{height:auto;padding:0;font-size:8pt}
+ .printing-baja-model .baja-index-status{margin:3mm 0 0;font-size:7pt}
+ .printing-baja-model .annex1-document{font-size:8pt}
+ .printing-baja-model .annex1-header{padding-bottom:2mm;border-bottom-width:1px}
+ .printing-baja-model .annex1-kicker{margin-bottom:1mm;font-size:7pt}
+ .printing-baja-model .annex1-header h2{margin:0 0 1mm;font-size:13pt;line-height:1.1}
+ .printing-baja-model .annex1-exp-number{font-size:7pt}
+ .printing-baja-model .annex1-header-line{gap:2mm;font-size:8pt}
+ .printing-baja-model .annex1-entity-grid{gap:2mm 4mm;padding:3mm 0}
+ .printing-baja-model .annex1-entity-grid label,.printing-baja-model .annex1-signatures label{gap:2mm;font-size:7.5pt}
+ .printing-baja-model .annex1-entity-grid input,.printing-baja-model .annex1-signatures input{height:5mm;padding:0 1mm;font-size:8pt}
+ .printing-baja-model .annex1-table th,.printing-baja-model .annex1-table td{padding:1.2mm 2mm!important;font-size:7.5pt!important;line-height:1.1!important}
+ .printing-baja-model .annex1-table th:last-child,.printing-baja-model .annex1-table td:last-child{width:16mm}
+ .printing-baja-model .annex1-table input[type=checkbox]{width:3mm;height:3mm}
+ .printing-baja-model .annex1-proposal{margin-top:2mm}
+ .printing-baja-model .annex1-proposal>strong{padding:1.5mm 2mm;font-size:7.5pt}
+ .printing-baja-model .annex1-proposal label{gap:2mm;padding:1.5mm 2mm;font-size:7.5pt}
+ .printing-baja-model .annex1-amount{gap:4mm;margin-top:2mm;padding:2mm;font-size:7.5pt}
+ .printing-baja-model .annex1-amount input{width:20mm;height:5mm;font-size:8pt}
+ .printing-baja-model .annex1-signatures{gap:8mm;margin-top:7mm;padding:0 3mm}
+ .printing-baja-model .physical-inventory-heading>span{font-size:7pt}
+ .printing-baja-model .physical-inventory-heading h2{margin:1mm 0 2mm;font-size:14pt}
+ .printing-baja-model .physical-inventory-heading p{max-width:none;margin:0 0 3mm;font-size:8pt;line-height:1.25}
+ .printing-baja-model .physical-inventory-meta{margin:0 0 2mm;font-size:7pt}
+ .printing-baja-model .physical-inventory-table th,.printing-baja-model .physical-inventory-table td{padding:1.2mm 1.5mm!important;font-size:7pt!important;line-height:1.1!important}
+ .printing-baja-model .physical-inventory-table th{font-size:6.5pt!important}
+ .printing-baja-model .physical-inventory-empty{display:none!important}
+ .printing-baja-model .physical-inventory-total{gap:4mm;padding:2mm 1mm;font-size:8pt}
+ .printing-baja-model .physical-inventory-total strong{min-width:22mm;font-size:9pt}
+ .printing-baja-model .physical-inventory-note{margin:3mm 0;font-size:7.5pt}
+ .printing-baja-model .physical-inventory-signatures{gap:3mm;margin-top:4mm;font-size:7.5pt}
+ .printing-baja-model .annex2-document{font-size:8pt;line-height:1.25}
+ .printing-baja-model .annex2-heading{padding-bottom:2mm;border-bottom-width:1px}
+ .printing-baja-model .annex2-heading>span{font-size:7pt}
+ .printing-baja-model .annex2-heading h2{margin:2mm 0 0;font-size:15pt;line-height:1.1}
+ .printing-baja-model .annex2-heading strong{font-size:8pt}
+ .printing-baja-model .annex2-intro,.printing-baja-model .annex2-decision{margin:3mm 0 2mm;line-height:1.3}
+ .printing-baja-model .annex2-document input{padding:0 1mm;font-size:8pt}
+ .printing-baja-model .annex2-exp-number{margin:0 0 1mm;font-size:7pt}
+ .printing-baja-model .annex2-table th,.printing-baja-model .annex2-table td{padding:1mm 1.2mm!important;font-size:6.8pt!important;line-height:1.1!important}
+ .printing-baja-model .annex2-table th{font-size:6.4pt!important}
+ .printing-baja-model .annex2-empty{display:none!important}
+ .printing-baja-model .annex2-resolutions{padding-left:5mm;line-height:1.25}
+ .printing-baja-model .annex2-resolutions li{padding:0 0 1mm}
+ .printing-baja-model .annex2-sign-intro{margin:4mm 0 2mm}
+ .printing-baja-model .annex2-signatures{gap:5mm 7mm;padding:0 2mm}
+ .printing-baja-model .annex2-signatures>div{min-height:17mm;gap:1mm}
+ .printing-baja-model .annex2-signatures strong,.printing-baja-model .annex2-signatures span{font-size:7pt}
+ .printing-baja-model .annex2-signatures i{height:5mm}
+ .printing-baja-model .compt-document{font-size:8pt}
+ .printing-baja-model .compt-header{min-height:25mm;padding-right:38mm}
+ .printing-baja-model .compt-entity{font-size:7pt}
+ .printing-baja-model .compt-header h2{margin:3mm 0 0;font-size:12pt}
+ .printing-baja-model .compt-title{top:10mm;width:36mm;font-size:7.5pt}
+ .printing-baja-model .compt-code{bottom:1mm;gap:3mm;font-size:7pt}
+ .printing-baja-model .compt-table{min-width:0!important;table-layout:fixed}
+ .printing-baja-model .compt-table th,.printing-baja-model .compt-table td{height:5mm;padding:1mm!important;font-size:6.5pt!important;line-height:1.1!important}
+ .printing-baja-model .compt-table thead tr+tr th{height:4mm}
+ .printing-baja-model .compt-table .compt-account td{height:6mm}
+ .printing-baja-model .compt-table input,.printing-baja-model .compt-explanation input,.printing-baja-model .compt-explanation textarea,.printing-baja-model .compt-signatures input{height:auto;min-height:4mm;padding:0;font-size:6.5pt}
+ .printing-baja-model .compt-explanation{grid-template-columns:24mm 1fr;gap:2mm 3mm;margin-top:3mm;font-size:7pt}
+ .printing-baja-model .compt-explanation>strong{padding-top:1mm}
+ .printing-baja-model .compt-explanation textarea{height:9mm}
+ .printing-baja-model .compt-signatures{gap:3mm;margin-top:8mm}
+ .printing-baja-model .compt-signatures>div{min-height:10mm;gap:1mm}
+ .printing-baja-model .compt-signatures strong{font-size:6pt}
+ .printing-baja-model .compt-signatures .compt-register{min-height:6mm}
+ .printing-baja-model .annex3-document{font-size:9pt;line-height:1.2;page:anexo3}
+ .printing-baja-model .annex3-title{margin:0 0 5mm;font-size:11pt}
+ .printing-baja-model .annex3-document h2{font-size:9pt}
+ .printing-baja-model .annex3-intro{margin-top:8mm;font-size:9pt;line-height:1.2}
+ .printing-baja-model .annex3-write-lines{margin-top:5mm;font-size:9pt;line-height:1.45}
+ .printing-baja-model .annex3-closing{margin-top:18mm;font-size:9pt}
+ .printing-baja-model .annex3-signatures{gap:7mm 5mm;margin-top:8mm}
+ .printing-baja-model .annex3-signatures>div{font-size:8pt}
+ .printing-baja-model .annex3-signature-center{margin-top:4mm}
+ .printing-baja-model input,.printing-baja-model textarea{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+}
+
+.baja-candidate-option>select{width:72px;flex:0 0 72px;margin-left:auto;padding:5px 6px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font-size:10px;font-weight:700}
+.physical-inventory-total>span{display:flex;align-items:center;gap:8px}
+@media print{
+ .printing-baja-model .physical-inventory-table,.printing-baja-model .annex2-table{table-layout:fixed}
+ .printing-baja-model .physical-inventory-table th:nth-child(1){width:27%}.printing-baja-model .physical-inventory-table th:nth-child(2),.printing-baja-model .physical-inventory-table th:nth-child(3){width:12%}.printing-baja-model .physical-inventory-table th:nth-child(4){width:13%}.printing-baja-model .physical-inventory-table th:nth-child(5),.printing-baja-model .physical-inventory-table th:nth-child(6){width:12%}.printing-baja-model .physical-inventory-table th:nth-child(7){width:12%}
+ .printing-baja-model .annex2-table th:nth-child(1){width:19%}.printing-baja-model .annex2-table th:nth-child(2){width:15%}.printing-baja-model .annex2-table th:nth-child(3){width:12%}.printing-baja-model .annex2-table th:nth-child(4),.printing-baja-model .annex2-table th:nth-child(5){width:10%}.printing-baja-model .annex2-table th:nth-child(6){width:9%}.printing-baja-model .annex2-table th:nth-child(7),.printing-baja-model .annex2-table th:nth-child(8){width:12.5%}
+ .printing-baja-model .physical-inventory-table th,.printing-baja-model .physical-inventory-table td,.printing-baja-model .annex2-table th,.printing-baja-model .annex2-table td{overflow-wrap:anywhere}
+ .printing-baja-model .physical-inventory-total{justify-content:flex-end;gap:10mm}
+}

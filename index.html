@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mis Proyectos</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0; height: 100%;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background: #f4f6f8; color: #222;
+    }
+
+    /* ---------- Pantalla de inicio (índice) ---------- */
+    .pantalla-inicio {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+    }
+    .pantalla-inicio iframe {
+      width: 100%;
+      height: 100vh;
+      border: 0;
+      display: block;
+      background: #fff;
+    }
+    .pantalla-inicio.oculta { display: none; }
+
+    /* ---------- Barra de pestañas (oculta al inicio) ---------- */
+    .tabs {
+      display: none;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+      background: #1f2937;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .tabs.visible { display: flex; }
+
+    .tabs button {
+      padding: 10px 16px;
+      background: #374151;
+      color: #fff;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-family: inherit;
+    }
+    .tabs button:hover { background: #4b5563; }
+    .tabs button.active { background: #2563eb; }
+    .tabs .btn-inicio { background: #047857; }
+    .tabs .btn-inicio:hover { background: #059669; }
+
+    /* ---------- Paneles ---------- */
+    .panels {
+      display: none;
+      padding: 12px;
+    }
+    .panels.visible { display: block; }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .panel iframe {
+      width: 100%;
+      height: calc(100vh - 90px);
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      background: #fff;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       CONFIGURACIÓN: ruta de tu página índice.
+       Cambia "Indice/index.html" por la ruta real.
+       Ejemplo: "menu/principal.html"  o  "home.html"
+       ============================================================ -->
+  <div class="pantalla-inicio" id="pantallaInicio">
+    <iframe id="iframeInicio" data-src="indice.html" title="Inicio"></iframe>
+  </div>
+
+  <!-- Barra de pestañas (oculta hasta que el índice dispare una) -->
+  <nav class="tabs" id="barraPestanas">
+    <button type="button" class="btn-inicio" id="btnInicio">← Inicio</button>
+    <button type="button" data-target="panel1">Proyecto 1</button>
+    <button type="button" data-target="panel2">Proyecto 2</button>
+    <button type="button" data-target="panel3">Proyecto 3</button>
+  </nav>
+
+  <!-- Paneles -->
+  <main class="panels" id="contenedorPaneles">
+    <section class="panel" id="panel1">
+      <iframe data-src="proyecto1/index.html" title="Proyecto 1"></iframe>
+    </section>
+    <section class="panel" id="panel2">
+      <iframe data-src="proyecto2/index.html" title="Proyecto 2"></iframe>
+    </section>
+    <section class="panel" id="panel3">
+      <iframe data-src="proyecto3/index.html" title="Proyecto 3"></iframe>
+    </section>
+  </main>
+
+  <script>
+    // ---------- Utilidades ----------
+    function cargarIframe(contenedor) {
+      if (!contenedor) return;
+      const iframe = contenedor.querySelector('iframe');
+      if (iframe && !iframe.src) iframe.src = iframe.dataset.src;
+    }
+    function panelExiste(id) { return !!document.getElementById(id); }
+
+    // ---------- Mostrar índice ----------
+    function mostrarInicio() {
+      document.getElementById('pantallaInicio').classList.remove('oculta');
+      document.getElementById('barraPestanas').classList.remove('visible');
+      document.getElementById('contenedorPaneles').classList.remove('visible');
+      cargarIframe(document.getElementById('pantallaInicio'));
+      if (window.location.hash) {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    }
+
+    // ---------- Mostrar panel ----------
+    function mostrarPanel(panelId) {
+      if (!panelExiste(panelId)) { mostrarInicio(); return; }
+
+      document.getElementById('pantallaInicio').classList.add('oculta');
+      document.getElementById('barraPestanas').classList.add('visible');
+      document.getElementById('contenedorPaneles').classList.add('visible');
+
+      document.querySelectorAll('.tabs button[data-target]').forEach(b => {
+        b.classList.toggle('active', b.dataset.target === panelId);
+      });
+      document.querySelectorAll('.panel').forEach(p => {
+        p.classList.toggle('active', p.id === panelId);
+      });
+
+      cargarIframe(document.getElementById(panelId));
+
+      if (window.location.hash !== '#' + panelId) {
+        history.replaceState(null, '', '#' + panelId);
+      }
+    }
+
+    // ---------- Estado según hash ----------
+    function aplicarEstadoDesdeHash() {
+      const hash = window.location.hash.replace('#', '');
+      if (!hash || hash === 'inicio') mostrarInicio();
+      else mostrarPanel(hash);
+    }
+
+    // ---------- Eventos ----------
+    document.querySelectorAll('.tabs button[data-target]').forEach(b => {
+      b.addEventListener('click', () => mostrarPanel(b.dataset.target));
+    });
+    document.getElementById('btnInicio').addEventListener('click', mostrarInicio);
+    window.addEventListener('hashchange', aplicarEstadoDesdeHash);
+
+    // Mensajes desde el índice:  parent.postMessage({accion:'abrirTab', panel:'panel1'},'*')
+    window.addEventListener('message', (e) => {
+      const d = e.data;
+      if (d && d.accion === 'abrirTab' && d.panel) mostrarPanel(d.panel);
+    });
+
+    // ---------- Estado inicial ----------
+    aplicarEstadoDesdeHash();
+  </script>
+</body>
+</html>
