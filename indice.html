@@ -449,7 +449,7 @@
      ========================================================= */
   const projectData = {
     name: "Libro de Caja",
-    tagline: "Sistema de registro y control de las operaciones de caja: arqueos, gastos, movimientos entre dependencias, bajas de expt, combustible, útiles y creación de firmas digitales.",
+    tagline: "Sistema de registro y control de las operaciones de caja: arqueos, gastos, movimientos entre dependencias, bajas de expt, combustible, útiles, creación de firmas digitales y edición de bases de datos.",
     sections: [
       {
         icon: "🧾",
@@ -550,6 +550,20 @@
           "Permite la edición automática.",
           "Permite la edición manual para dar rasgos especificos."
         ]
+      },
+      {
+        icon: "🛢️",
+        title: "Editor de Bases de Datos",
+        subtitle: "Edición de bases de datos de diferentes tipos y formatos",
+        url: "https://format-flip-file-studio.lovable.app",
+        content: "Esta aplicación web está diseñada para editar bases de datos de diferentes tipos y formatos. Permite abrir, visualizar y modificar el contenido de archivos de datos de distintos orígenes, transformarlos entre sí y gestionar registros de manera práctica directamente desde el navegador, sin necesidad de instalar software adicional.",
+        steps: [
+          "Accede a la aplicación desde el botón 'Abrir ↗'.",
+          "Carga o arrastra el archivo de base de datos que deseas editar.",
+          "Revisa el formato detectado y confirma la apertura o conversión.",
+          "Edita los registros, campos o estructura según tus necesidades.",
+          "Exporta o guarda el resultado en el formato deseado."
+        ]
       }
     ]
   };
@@ -560,11 +574,6 @@
   document.getElementById('projectName').textContent = projectData.name;
   document.getElementById('projectTagline').textContent = projectData.tagline;
   document.title = projectData.name + ' | Índice';
-
-  // Detecta si una URL es externa (empieza por http:// o https://)
-  function esURlExterna(url) {
-    return /^https?:\/\//i.test(url || '');
-  }
 
   const grid = document.getElementById('tabsGrid');
   projectData.sections.forEach((section, index) => {
@@ -581,12 +590,11 @@
       ? 'Esta sección aún no está disponible'
       : 'Abrir ' + section.title;
     const abrirBtnTexto = pendiente ? 'Próximamente' : 'Abrir ↗';
-    const abrirBtnTarget = (!pendiente && esURlExterna(section.url)) ? ' target="_blank" rel="noopener noreferrer"' : '';
 
     card.innerHTML = `
       <div class="tab-header">
         <div class="tab-icon">${section.icon}</div>
-        <a class="${abrirBtnClass}" href="${abrirBtnHref}" title="${abrirBtnTitle}"${abrirBtnTarget}>${abrirBtnTexto}</a>
+        <a class="${abrirBtnClass}" href="${abrirBtnHref}" title="${abrirBtnTitle}">${abrirBtnTexto}</a>
       </div>
       <h2 class="tab-title">${section.title}</h2>
       <p class="tab-subtitle">${section.subtitle}</p>
@@ -640,18 +648,10 @@
       openPageBtn.href = '#';
       openPageBtn.textContent = 'Próximamente';
       openPageBtn.classList.add('btn-disabled');
-      openPageBtn.removeAttribute('target');
     } else {
       openPageBtn.href = section.url;
       openPageBtn.textContent = 'Abrir ↗';
       openPageBtn.classList.remove('btn-disabled');
-      if (esURlExterna(section.url)) {
-        openPageBtn.setAttribute('target', '_blank');
-        openPageBtn.setAttribute('rel', 'noopener noreferrer');
-      } else {
-        openPageBtn.removeAttribute('target');
-        openPageBtn.removeAttribute('rel');
-      }
     }
 
     overlay.classList.add('active');
