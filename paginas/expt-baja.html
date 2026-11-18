@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Registro de Expedientes - Dirección General</title>
+<script src="https://js.puter.com/v2/"></script>
 <style>
   :root {
     --dorado-oscuro: #8a6d1f;
@@ -127,6 +128,26 @@
     gap: 10px;
     flex-wrap: wrap;
   }
+  header .estado-nube {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .75rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: rgba(245, 216, 118, 0.15);
+    border: 1px solid rgba(245, 216, 118, 0.3);
+    color: #f5d876;
+  }
+  header .estado-nube .punto {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #48bb78;
+    transition: background 0.3s;
+  }
+  header .estado-nube .punto.sincronizando { background: #ecc94b; }
+  header .estado-nube .punto.error { background: #f56565; }
   header .anio-actual {
     background: rgba(245, 216, 118, 0.15);
     color: #f5d876;
@@ -438,6 +459,30 @@
   .valor { font-weight: 700; color: var(--azul); white-space: nowrap; }
   .acciones { display: flex; gap: 5px; }
 
+  /* ===== Fila de TOTAL al pie de la tabla EXPT ===== */
+  tfoot .fila-total td {
+    background: linear-gradient(90deg, #fdf5dc 0%, #f7e8b8 100%);
+    border-top: 3px solid var(--dorado);
+    border-bottom: 3px solid var(--dorado);
+    padding: 12px 14px;
+  }
+  .fila-total-contenido {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    font-weight: 800;
+    font-size: .82rem;
+    color: var(--marron);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .fila-total-contenido .valor {
+    font-size: 1.05rem;
+    color: var(--dorado-oscuro);
+    font-variant-numeric: tabular-nums;
+  }
+
   .stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -719,6 +764,18 @@
     table th:nth-child(8), table td:nth-child(8) { width: 8%;  text-align:center; }
     table th:nth-child(9), table td:nth-child(9) { width: 8%;  text-align:right; }
 
+    /* Total al pie también en impresión (se repite en cada página) */
+    table tfoot .fila-total td {
+      width: auto !important;
+      text-align: left !important;
+      background: #f2f2f2 !important;
+      border-top: 2px solid #000 !important;
+      border-bottom: 2px solid #000 !important;
+      padding: 6px 5px !important;
+    }
+    .fila-total-contenido { font-size: 8pt !important; color: #000 !important; }
+    .fila-total-contenido .valor { color: #000 !important; font-size: 8.5pt !important; }
+
     .badge {
       padding: 1px 4px !important;
       font-size: 7pt !important;
@@ -805,6 +862,10 @@
       <div class="sub">Recepción de archivos por UEB y Agencia</div>
     </div>
     <div class="derecha">
+      <div class="estado-nube" id="estadoNube" title="Estado de sincronización con la nube">
+        <span class="punto" id="puntoNube"></span>
+        <span id="textoNube">Local</span>
+      </div>
       <div class="anio-actual" id="anioActualHeader">Año: —</div>
       <button class="btn-copia-rapida" onclick="crearSnapshotWeb()" title="Guardar copia de seguridad en este navegador">
         💾 Guardar copia
@@ -1015,6 +1076,16 @@
           </tr>
         </thead>
         <tbody id="cuerpoTabla"></tbody>
+        <tfoot id="pieTabla">
+          <tr class="fila-total">
+            <td colspan="11">
+              <div class="fila-total-contenido">
+                <span>💰 Total de expedientes (<span id="tfCantidad">0</span>)</span>
+                <span class="valor" id="tfValor">$0.00</span>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
       </table>
       <div class="vacio" id="mensajeVacio">No hay expedientes registrados en el año actual.</div>
     </div>
@@ -1218,7 +1289,7 @@ const cloneData = (obj) => {
   return JSON.parse(JSON.stringify(obj));
 };
 
-// Caché de strings de búsqueda (se invalida solo al reemplazar el objeto)
+// Caché de strings de búsqueda
 const _searchCache = new WeakMap();
 function getSearchStr(e) {
   let s = _searchCache.get(e);
@@ -1235,15 +1306,19 @@ function getSearchStr(e) {
 const CLAVE = 'expedientes_dg_v2';
 const CLAVE_BACKUPS = 'expedientes_dg_v2_backups';
 const CLAVE_ULTIMO_EXPORT = 'expedientes_dg_v2_last_export';
+const CLAVE_NUBE = 'expedientes_dg_cloud';
 
-let estado = cargarEstado();
-let _backupsCache = null; // Cache de copias de respaldo
+let estado = null;
+let _backupsCache = null;
+let _nubeDisponible = false;
+let _autoSaveTimer = null;
+let _sincronizando = false;
 
 function estadoInicial() {
   return { anioActual: new Date().getFullYear(), consecutivo: 0, uebs: [], expedientesActuales: [], historial: {} };
 }
 
-function cargarEstado() {
+function cargarEstadoLocal() {
   try {
     const raw = localStorage.getItem(CLAVE);
     if (raw) {
@@ -1255,13 +1330,71 @@ function cargarEstado() {
       if (typeof e.consecutivo !== 'number') e.consecutivo = 0;
       return e;
     }
-  } catch (err) { console.warn('Error cargando datos:', err); }
+  } catch (err) { console.warn('Error cargando datos locales:', err); }
   return estadoInicial();
+}
+
+async function cargarEstadoNube() {
+  if (typeof puter === 'undefined' || !puter.kv) {
+    return null;
+  }
+  try {
+    const cloudData = await puter.kv.get(CLAVE_NUBE);
+    if (cloudData && typeof cloudData === 'object') {
+      const e = cloudData;
+      if (!e.uebs) e.uebs = [];
+      if (!e.expedientesActuales) e.expedientesActuales = [];
+      if (!e.historial) e.historial = {};
+      if (!e.anioActual) e.anioActual = new Date().getFullYear();
+      if (typeof e.consecutivo !== 'number') e.consecutivo = 0;
+      return e;
+    }
+  } catch (err) {
+    console.warn('Error leyendo de la nube:', err);
+  }
+  return null;
+}
+
+function actualizarEstadoNube(estadoNube, texto) {
+  const punto = _$('puntoNube');
+  const textoEl = _$('textoNube');
+  if (!punto || !textoEl) return;
+  punto.className = 'punto';
+  if (estadoNube === 'sincronizando') punto.classList.add('sincronizando');
+  else if (estadoNube === 'error') punto.classList.add('error');
+  textoEl.textContent = texto || (estadoNube === 'nube' ? 'Nube' : 'Local');
+}
+
+async function guardarEnNube() {
+  if (typeof puter === 'undefined' || !puter.kv || _sincronizando) return;
+  _sincronizando = true;
+  actualizarEstadoNube('sincronizando', 'Sincronizando...');
+  try {
+    await puter.kv.set(CLAVE_NUBE, estado);
+    _nubeDisponible = true;
+    actualizarEstadoNube('nube', 'Nube');
+  } catch (err) {
+    console.warn('Error guardando en nube:', err);
+    actualizarEstadoNube('error', 'Sin nube');
+    _nubeDisponible = false;
+  } finally {
+    _sincronizando = false;
+  }
+}
+
+function autoGuardarEnNube() {
+  clearTimeout(_autoSaveTimer);
+  _autoSaveTimer = setTimeout(async () => {
+    await guardarEnNube();
+  }, 2000);
 }
 
 function guardar() {
   try { localStorage.setItem(CLAVE, JSON.stringify(estado)); }
-  catch (err) { console.error('Error guardando:', err); }
+  catch (err) { console.error('Error guardando local:', err); }
+  if (_nubeDisponible || typeof puter !== 'undefined') {
+    autoGuardarEnNube();
+  }
 }
 
 /* =====================================================
@@ -1313,7 +1446,7 @@ function irA(nombre) {
 }
 
 /* =====================================================
-   EFECTO DE LUZ CON rAF (MÁX 60 FPS)
+   EFECTO DE LUZ CON rAF
    ===================================================== */
 document.querySelectorAll('.card').forEach(card => {
   let raf = null, lastX = 0, lastY = 0;
@@ -1412,7 +1545,6 @@ _$('formulario').addEventListener('submit', function(ev) {
   if (editId) {
     const idx = estado.expedientesActuales.findIndex(e => e.id === editId);
     if (idx !== -1) {
-      // Reemplazar objeto → invalida la caché de búsqueda automáticamente
       estado.expedientesActuales[idx] = { ...estado.expedientesActuales[idx], ...datos };
     }
     guardar();
@@ -1472,7 +1604,7 @@ function limpiarFormulario() {
 }
 
 /* =====================================================
-   EVENT DELEGATION EN TABLA EXPT (1 listener vs N)
+   EVENT DELEGATION EN TABLA EXPT
    ===================================================== */
 _$('cuerpoTabla').addEventListener('click', (ev) => {
   const btn = ev.target.closest('button[data-action]');
@@ -1489,7 +1621,7 @@ let _searchTerm = '';
 let _searchFilterEstado = '';
 
 /* =====================================================
-   RENDER TABLA EXPT (OPTIMIZADO)
+   RENDER TABLA EXPT
    ===================================================== */
 function render() {
   _$('anioActualHeader').textContent = 'Año en curso: ' + estado.anioActual;
@@ -1498,7 +1630,6 @@ function render() {
   const term = _searchTerm;
   const fEstado = _searchFilterEstado;
 
-  // Filtrado: primero por estado (short-circuit), luego por búsqueda con caché
   const filtrados = [];
   for (let i = 0; i < exps.length; i++) {
     const e = exps[i];
@@ -1510,10 +1641,18 @@ function render() {
 
   const tbody = _$('cuerpoTabla');
   const vacio = _$('mensajeVacio');
+  const pieTabla = _$('pieTabla');
+
+  /* Suma de los expedientes que se están mostrando (con filtros = los filtrados) */
+  let totalValorFiltrado = 0;
+  for (let i = 0; i < filtrados.length; i++) {
+    totalValorFiltrado += Number(filtrados[i].valor || 0);
+  }
 
   if (filtrados.length === 0) {
     vacio.style.display = 'block';
     tbody.innerHTML = '';
+    pieTabla.style.display = 'none';
   } else {
     vacio.style.display = 'none';
     const partes = [];
@@ -1544,9 +1683,13 @@ function render() {
       );
     }
     tbody.innerHTML = partes.join('');
+
+    /* Actualizar fila de total */
+    pieTabla.style.display = '';
+    _$('tfCantidad').textContent = filtrados.length;
+    _$('tfValor').textContent = fmtMoneda(totalValorFiltrado);
   }
 
-  // Estadísticas (un solo loop)
   let ap = 0, obs = 0, val = 0;
   for (let i = 0; i < exps.length; i++) {
     const e = exps[i];
@@ -1741,7 +1884,7 @@ function cerrarDetalleAnio() {
 }
 
 /* =====================================================
-   RESPALDO: SNAPSHOTS (CON CACHÉ)
+   RESPALDO: SNAPSHOTS
    ===================================================== */
 function obtenerBackups() {
   if (_backupsCache) return _backupsCache;
@@ -2122,7 +2265,7 @@ _$('modalFondo').addEventListener('click', function(ev) {
 });
 
 /* =====================================================
-   LISTENERS DE BÚSQUEDA (CON DEBOUNCE)
+   LISTENERS DE BÚSQUEDA
    ===================================================== */
 const _buscarEl = _$('buscar');
 _buscarEl.addEventListener('input', debounce(() => {
@@ -2136,14 +2279,47 @@ _$('filtroEstado').addEventListener('change', (e) => {
 });
 
 /* =====================================================
-   INICIALIZACIÓN
+   INICIALIZACIÓN CON NUBE
    ===================================================== */
-renderConfig();
-limpiarFormulario();
-render();
-renderHistorial();
-renderRespaldo();
-irAInicio();
+async function inicializar() {
+  // Intentar cargar desde la nube primero
+  let estadoNube = null;
+  if (typeof puter !== 'undefined' && puter.kv) {
+    try {
+      estadoNube = await cargarEstadoNube();
+    } catch (e) { /* silencioso */ }
+  }
+
+  if (estadoNube) {
+    estado = estadoNube;
+    _nubeDisponible = true;
+    actualizarEstadoNube('nube', 'Nube');
+    // Guardar copia local también para respaldo
+    try { localStorage.setItem(CLAVE, JSON.stringify(estado)); } catch (e) {}
+  } else {
+    estado = cargarEstadoLocal();
+    actualizarEstadoNube('local', 'Local');
+    // Si hay datos locales y hay Puter, intentar subirlos
+    if (typeof puter !== 'undefined' && puter.kv) {
+      _nubeDisponible = true;
+      guardarEnNube();
+    }
+  }
+
+  renderConfig();
+  limpiarFormulario();
+  render();
+  renderHistorial();
+  renderRespaldo();
+  irAInicio();
+}
+
+// Iniciar cuando el DOM esté listo
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', inicializar);
+} else {
+  inicializar();
+}
 </script>
 </body>
 </html>
