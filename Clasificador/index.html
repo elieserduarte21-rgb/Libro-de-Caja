@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e3f4fb">
+  <title>Clasificador</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="table.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="mark" href="#" aria-label="Inicio">✦</a>
+      <div class="brand"><span id="entity-name" class="entity-name">NOEL &amp; HENRY</span></div>
+      <div class="top-note"><span class="status-dot"></span> Clasificador de cuentas</div>
+      <button id="options-button" class="options-button" type="button" aria-haspopup="dialog">Opciones</button>
+    </header>
+
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <h1 id="page-title">Cuentas, <em>en orden.</em></h1>
+      </div>
+    </section>
+
+    <section class="workspace" aria-label="Clasificador de cuentas">
+      <div class="toolbar">
+        <label class="searchbox">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.3 4.3"></path></svg>
+          <input id="search" type="search" placeholder="Buscar cuenta o descripción…" autocomplete="off" aria-label="Buscar cuenta o descripción">
+          <kbd>/</kbd>
+        </label>
+        <div class="filters" role="group" aria-label="Filtrar por naturaleza">
+          <button class="filter active" data-nature="Todas" type="button">Todas <span id="all-count">0</span></button>
+          <button class="filter" data-nature="Deudora" type="button">Deudora <span id="debit-count">0</span></button>
+          <button class="filter" data-nature="Acreedora" type="button">Acreedora <span id="credit-count">0</span></button>
+          <button class="filter" data-nature="Mixta" type="button">Mixta <span id="mixed-count">0</span></button>
+        </div>
+      </div>
+
+      <div class="results-bar">
+        <div><span class="result-number" id="result-count">0</span> grupos</div>
+        <div class="column-hint">Cuenta <span>›</span> Subcuenta <span>›</span> Descripción <span>›</span> Naturaleza</div>
+      </div>
+
+      <div class="table-wrap" id="table-wrap">
+        <table class="account-table">
+          <thead><tr><th scope="col">Cuenta</th><th scope="col">Subcuenta</th><th scope="col">Descripción</th><th scope="col">Naturaleza</th></tr></thead>
+          <tbody id="account-rows" aria-live="polite"></tbody>
+        </table>
+      </div>
+      <div id="empty" class="empty" hidden>
+        <div class="empty-icon">⌕</div>
+        <h2>No encontramos cuentas</h2>
+        <p>Prueba con otro código o descripción.</p>
+      </div>
+      <div class="source-note"><span class="note-mark">i</span> Transcripción de los archivos 2 y 3: cuentas 334–819.</div>
+    </section>
+  </main>
+  <dialog id="options-dialog" class="options-dialog" aria-labelledby="options-title">
+    <form method="dialog">
+      <div class="dialog-heading"><h2 id="options-title">Opciones</h2><button id="close-options" class="close-options" type="button" aria-label="Cerrar">×</button></div>
+      <label for="entity-input">Nombre de la entidad</label>
+      <input id="entity-input" type="text" maxlength="80" autocomplete="organization" value="NOEL &amp; HENRY">
+      <div class="dialog-actions"><button id="cancel-options" class="dialog-cancel" type="button">Cancelar</button><button id="save-options" class="dialog-save" type="button">Guardar</button></div>
+    </form>
+  </dialog>
+</body>
+</html>
