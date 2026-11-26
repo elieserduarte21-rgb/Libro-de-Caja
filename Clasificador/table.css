@@ -1,0 +1,27 @@
+/* Account table layout */
+.column-hint{font-size:10px;color:#98a39b;white-space:nowrap}.column-hint span{padding:0 5px;color:#c6cdc6}.table-wrap{overflow:auto;max-height:calc(100vh - 340px);min-height:180px}.account-table{width:100%;border-collapse:collapse;text-align:left;font-size:12px}.account-table thead{position:sticky;top:0;z-index:1;background:#f8f9f6}.account-table th{padding:12px 18px;color:#727f77;font:600 10px Manrope,sans-serif;letter-spacing:.04em;border-top:1px solid #edf0ea;border-bottom:1px solid #e7eae4;white-space:nowrap}.account-table th:first-child,.account-table td:first-child{padding-left:24px}.account-table th:nth-child(1){width:15%}.account-table th:nth-child(2){width:19%}.account-table th:nth-child(4){width:16%}.account-table td{padding:11px 18px;border-bottom:1px solid #eff1ed;vertical-align:middle}.account-table tbody tr:hover{background:#fafbf9}.code-cell,.subaccount-cell{font:11px 'DM Mono',monospace;color:#42544a;white-space:nowrap}.subaccount-cell{color:#738078}.description-cell{color:#39473f;line-height:1.45}.nature-pill{display:inline-flex;align-items:center;gap:6px;border-radius:20px;padding:4px 8px;font-size:10px;font-weight:600;white-space:nowrap}.nature-pill:before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}.nature-pill.debit{color:#377858;background:#eaf4ed}.nature-pill.credit{color:#96703b;background:#f7f0e5}.nature-pill.mixed{color:#6960a4;background:#f0eef9}.account-table[hidden],.table-wrap[hidden]{display:none}.empty{border-top:1px solid #edf0ea}.results-bar{min-height:49px}.source-note{margin-top:0}
+@media(max-width:760px){.column-hint{display:none}.table-wrap{max-height:calc(100vh - 340px)}.account-table{min-width:700px}.account-table th:first-child,.account-table td:first-child{padding-left:17px}.account-table th,.account-table td{padding-left:13px;padding-right:13px}}
+
+/* On-demand account groups */
+.group-row{background:#fbfcfa}.group-row td{font-weight:600}.group-row.contextual{background:#f7f9f6}.group-row.contextual .description-cell{color:#718078;font-weight:500}.group-toggle{width:18px;height:18px;margin-right:7px;padding:0;border:1px solid #dce5dd;border-radius:5px;background:#fff;color:#4a725c;display:inline-grid;place-items:center;vertical-align:middle;cursor:pointer}.group-toggle:hover{background:#edf5ef;border-color:#b9d1bf}.toggle-chevron{width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(-45deg);transition:transform .16s}.group-toggle[aria-expanded="true"] .toggle-chevron{transform:rotate(45deg) translate(-1px,-1px)}.toggle-spacer{display:inline-block;width:25px}.group-row .code-cell{color:#244a37}.child-row td{background:#fff}.child-row td:first-child{width:15%}.child-row .subaccount-cell{padding-left:28px;color:#7a8980}.child-count{margin-left:10px;color:#a1ada4;font:10px 'DM Mono',monospace;font-weight:400}.child-row:hover{background:#fafbf9}
+
+.account-table td{padding-top:6px;padding-bottom:6px}.group-row td{padding-top:6px;padding-bottom:6px}.child-row td{padding-top:4px;padding-bottom:4px}
+
+/* Compact spacing and cool silver-blue account surface */
+.table-wrap{background:#f3f7f9}
+.account-table thead{background:#e7eef3}
+.account-table th{color:#607482;border-top-color:#dce5eb;border-bottom-color:#d4e0e7;padding-left:12px;padding-right:12px}
+.account-table td{border-bottom-color:#e0e8ed;padding-left:12px;padding-right:12px}
+.account-table th:first-child,.account-table td:first-child{padding-left:17px}
+.account-table th:nth-child(1){width:13%}
+.account-table th:nth-child(2){width:17%}
+.account-table th:nth-child(4){width:14%}
+.group-row{background:#eaf1f5}
+.group-row.contextual{background:#f0f5f8}
+.group-row .code-cell{color:#385565}
+.group-toggle{border-color:#d2dfe6;color:#557383}
+.group-toggle:hover{background:#e2edf2;border-color:#bfd0da}
+.child-row td{background:#f7fafb}
+.child-row .subaccount-cell{color:#687d89}
+.account-table tbody tr:hover,.child-row:hover{background:#edf4f7}
+@media(max-width:760px){.account-table th,.account-table td{padding-left:10px;padding-right:10px}.account-table th:first-child,.account-table td:first-child{padding-left:15px}}
